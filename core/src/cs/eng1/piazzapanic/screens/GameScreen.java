@@ -1,6 +1,7 @@
 package cs.eng1.piazzapanic.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -24,9 +25,7 @@ import cs.eng1.piazzapanic.food.CustomerManager;
 import cs.eng1.piazzapanic.food.ingredients.Ingredient;
 import cs.eng1.piazzapanic.food.FoodTextureManager;
 import cs.eng1.piazzapanic.stations.*;
-import cs.eng1.piazzapanic.ui.StationActionUI;
-import cs.eng1.piazzapanic.ui.StationUIController;
-import cs.eng1.piazzapanic.ui.UIOverlay;
+import cs.eng1.piazzapanic.ui.*;
 
 import java.util.HashMap;
 
@@ -42,10 +41,11 @@ public class GameScreen implements Screen {
   private final ChefManager chefManager;
   private final OrthogonalTiledMapRenderer tileMapRenderer;
   private final StationUIController stationUIController;
-  private final UIOverlay uiOverlay;
+  private static UIOverlay uiOverlay = null;
   private final FoodTextureManager foodTextureManager;
   private final CustomerManager customerManager;
   private boolean isFirstFrame = true;
+  private static PauseOverlay pauseOverlay = null;
 
   public GameScreen(final PiazzaPanicGame game) {
     TiledMap map = new TmxMapLoader().load("main-game-map.tmx");
@@ -62,6 +62,9 @@ public class GameScreen implements Screen {
     this.uiStage = new Stage(uiViewport);
     this.stationUIController = new StationUIController(uiStage, game);
     uiOverlay = new UIOverlay(uiStage, game);
+
+    pauseOverlay = game.getPauseOverlay();
+    pauseOverlay.addToStage(uiStage);
 
     // Initialize tilemap
     this.tileMapRenderer = new OrthogonalTiledMapRenderer(map, tileUnitSize);
@@ -205,6 +208,10 @@ public class GameScreen implements Screen {
     stage.draw();
     uiStage.draw();
 
+    if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+      showPauseMenu();
+    }
+
     if (isFirstFrame) {
       customerManager.nextRecipe();
       isFirstFrame = false;
@@ -239,5 +246,9 @@ public class GameScreen implements Screen {
     tileMapRenderer.dispose();
     foodTextureManager.dispose();
     chefManager.dispose();
+  }
+  public static void showPauseMenu() {
+    pauseOverlay.show();
+    uiOverlay.stopTimer();
   }
 }

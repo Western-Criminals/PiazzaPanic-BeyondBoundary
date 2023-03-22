@@ -99,7 +99,7 @@ public class ChefManager implements Disposable {
     }
     final ChefManager manager = this;
     manager.setCurrentChef(chefs.get(0));
-    overlay.updateChefUI(currentChef);
+    overlay.updateChefUI(chefs.get(0));
     stage.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {

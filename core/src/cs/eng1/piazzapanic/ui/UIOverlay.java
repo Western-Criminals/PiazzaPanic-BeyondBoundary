@@ -21,6 +21,7 @@ import cs.eng1.piazzapanic.PiazzaPanicGame;
 import cs.eng1.piazzapanic.chef.Chef;
 import cs.eng1.piazzapanic.food.ingredients.Ingredient;
 import cs.eng1.piazzapanic.food.recipes.Recipe;
+import cs.eng1.piazzapanic.screens.GameScreen;
 import cs.eng1.piazzapanic.ui.ButtonManager.ButtonColour;
 
 public class UIOverlay {
@@ -33,7 +34,7 @@ public class UIOverlay {
   private final TextureRegionDrawable removeBtnDrawable;
   private final Image recipeImagesBG;
   private final VerticalGroup recipeImages;
-  private final Timer timer;
+  private static Timer timer = null;
   private final Label recipeCountLabel;
   private final Label resultLabel;
   private final Timer resultTimer;
@@ -86,7 +87,7 @@ public class UIOverlay {
     homeButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        game.loadHomeScreen();
+        GameScreen.showPauseMenu();
       }
     });
     removeBtnDrawable = new TextureRegionDrawable(
@@ -223,5 +224,12 @@ public class UIOverlay {
    */
   public void updateRecipeCounter(int remainingRecipes) {
     recipeCountLabel.setText(remainingRecipes);
+  }
+
+  public static void startTimer() {
+    timer.start();
+  }
+  public static void stopTimer() {
+    timer.stop();
   }
 }
