@@ -66,7 +66,7 @@ public class CookingStation extends Station {
         } else if (currentIngredient instanceof Patty
             && ((Patty) currentIngredient).getIsHalfCooked() && !currentIngredient.getIsCooked()) {
           currentIngredient.setIsCooked(true);
-        } else if (currentIngredient instanceof PizzaBase) {
+        } else if (currentIngredient instanceof PizzaBase && !currentIngredient.getIsCooked()) {
           currentIngredient.setIsCooked(true);
         }
         uiController.hideProgressBar(this);
