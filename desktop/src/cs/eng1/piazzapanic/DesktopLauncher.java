@@ -10,6 +10,7 @@ public class DesktopLauncher {
     config.setForegroundFPS(60);
     config.setTitle("Piazza Panic");
     config.setWindowSizeLimits(1920 / 2, 1080 / 2, -1, -1);
+    config.setWindowIcon("food/glitch/vegetable/jacketpotato.png");
     new Lwjgl3Application(new PiazzaPanicGame(), config);
   }
 }
