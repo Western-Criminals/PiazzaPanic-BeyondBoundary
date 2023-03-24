@@ -46,6 +46,8 @@ public class Ingredient {
         return new Cheese(textureManager);
       case "potato":
         return new Potato(textureManager);
+      case "pizza_base":
+        return new PizzaBase(textureManager);
       default:
         return null;
     }

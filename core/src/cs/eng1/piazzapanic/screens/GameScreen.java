@@ -249,6 +249,6 @@ public class GameScreen implements Screen {
   }
   public static void showPauseMenu() {
     pauseOverlay.show();
-    uiOverlay.stopTimer();
+    //uiOverlay.stopTimer();
   }
 }

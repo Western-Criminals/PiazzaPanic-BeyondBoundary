@@ -13,6 +13,7 @@ public class StationAction {
     MAKE_PIZZA,
     MAKE_JACKETPOTATO,
     SUBMIT_ORDER,
+    CLEAR_TABLE,
   }
 
   public static String getActionDescription(ActionType actionType) {
@@ -37,6 +38,8 @@ public class StationAction {
         return "Make Potato";
       case SUBMIT_ORDER:
         return "Submit Order";
+      case CLEAR_TABLE:
+        return "Clear Table";
       default:
         return "Unknown Action";
     }

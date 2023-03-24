@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -32,8 +30,8 @@ public class PauseOverlay {
     table.setFillParent(true);
     table.setVisible(false);
     table.center();
-    Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGB565);
-    bgPixmap.setColor(Color.BLUE);
+    Pixmap bgPixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+    bgPixmap.setColor(new Color(0,0,1,0.3f));
     bgPixmap.fill();
     TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(
         new Texture(bgPixmap));
@@ -42,12 +40,15 @@ public class PauseOverlay {
     uiStage = new Stage(uiViewport);
     uiOverlay = new UIOverlay(uiStage, game);
 
+    Label paused = new Label("Paused",
+            new Label.LabelStyle(game.getFontManager().getTitleFont(), null));
+
     TextButton resumeButton = game.getButtonManager()
         .createTextButton("Resume", ButtonColour.GREY);
     resumeButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        uiOverlay.startTimer();
+        //uiOverlay.startTimer();
         hide();
       }
     });
@@ -62,6 +63,8 @@ public class PauseOverlay {
       }
     });
 
+    table.add(paused);
+    table.row();
     table.add(homeButton).padTop(20f);
     table.row();
     table.add(resumeButton).padTop(20f);

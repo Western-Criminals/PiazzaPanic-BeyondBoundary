@@ -89,7 +89,7 @@ public class RecipeStation extends Station {
           actionTypes.add(ActionType.PLACE_INGREDIENT);
         }
       }
-      if (completedRecipe == null) {
+      else if (completedRecipe == null) {
         if (pattyCount >= 1 && bunCount >= 1 && nearbyChef.getStack().hasSpace()) {
           actionTypes.add(ActionType.MAKE_BURGER);
         }
@@ -102,8 +102,13 @@ public class RecipeStation extends Station {
         if (cheeseCount >= 1 && potatoCount >= 1 && nearbyChef.getStack().hasSpace()) {
           actionTypes.add(ActionType.MAKE_JACKETPOTATO);
         }
+        else {
+          actionTypes.add(ActionType.CLEAR_TABLE);
+        }
       } else if (customerManager.checkRecipe(completedRecipe)) {
         actionTypes.add(ActionType.SUBMIT_ORDER);
+      } else {
+        actionTypes.add(ActionType.CLEAR_TABLE);
       }
     }
     return actionTypes;
@@ -183,6 +188,9 @@ public class RecipeStation extends Station {
             completedRecipe = null;
           }
         }
+        break;
+      case CLEAR_TABLE:
+        reset();
         break;
     }
     uiController.showActions(this, getActionTypes());
