@@ -31,11 +31,12 @@ public class ChefManager implements Disposable {
       "Kenney-Game-Assets-2/2D assets/Topdown Shooter (620 assets)/PNG/Man Blue/manBlue_hold.png"
   };
   final float[] chefX = new float[]{
-      4f, 8f, 12f
+      7f, 8f, 7.5f
   };
   final float[] chefY = new float[]{
-      3f, 3f, 3f
+      5f, 5f, 4f
   };
+  final ChefManager manager = this;
 
   /**
    * @param chefScale      the amount to scale the texture by so that each chef is an accurate
@@ -71,6 +72,8 @@ public class ChefManager implements Disposable {
     for (int i = 0; i < chefs.size(); i++) {
       chefs.get(i).init(chefX[i], chefY[i]);
     }
+    manager.setCurrentChef(chefs.get(0));
+    overlay.updateChefUI(currentChef);
   }
 
   /**
@@ -97,9 +100,6 @@ public class ChefManager implements Disposable {
     for (Chef chef : chefs) {
       stage.addActor(chef);
     }
-    final ChefManager manager = this;
-    manager.setCurrentChef(chefs.get(0));
-    overlay.updateChefUI(chefs.get(0));
     stage.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {

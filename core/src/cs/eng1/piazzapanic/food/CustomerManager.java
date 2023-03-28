@@ -66,8 +66,10 @@ public class CustomerManager {
       overlay.updateRecipeCounter(customerOrders.size);
       currentOrder = customerOrders.removeFirst();
     }
+
     notifyRecipeStations();
     overlay.updateRecipeUI(currentOrder);
+    overlay.updateRep();
     if (currentOrder == null) {
       overlay.finishGameUI();
     }

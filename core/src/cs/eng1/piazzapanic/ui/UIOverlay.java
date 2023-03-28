@@ -5,14 +5,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Value;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -36,9 +30,14 @@ public class UIOverlay {
   private final VerticalGroup recipeImages;
   private static Timer timer = null;
   private final Label recipeCountLabel;
-  private final Label resultLabel;
+  private final Label resultLabel1;
+  private final Label resultLabel2;
   private final Timer resultTimer;
+  private final Label resultRep;
   private final PiazzaPanicGame game;
+  private int rep;
+  private final Label repLabel;
+  private static Timer repTimer = null;
 
   public UIOverlay(Stage uiStage, final PiazzaPanicGame game) {
     this.game = game;
@@ -108,10 +107,23 @@ public class UIOverlay {
 
     // Initialize winning label
     LabelStyle labelStyle = new Label.LabelStyle(game.getFontManager().getTitleFont(), null);
-    resultLabel = new Label("Congratulations! Your final time was:", labelStyle);
-    resultLabel.setVisible(false);
+    resultLabel1 = new Label("Congratulations! Your final time was:", labelStyle);
+    resultLabel1.setVisible(false);
+    resultLabel2 = new Label("with a reputation of:", labelStyle);
+    resultLabel2.setVisible(false);
     resultTimer = new Timer(labelStyle);
     resultTimer.setVisible(false);
+    resultRep = new Label("3",labelStyle);
+    resultRep.setVisible(false);
+
+    // Initialise rep points label
+    LabelStyle repStyle = new LabelStyle(game.getFontManager().getHeaderFont(), Color.BLACK);
+    repStyle.background = new TextureRegionDrawable(new Texture(
+            "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/grey_button_gradient_down.png"));
+    repLabel = new Label("Reputation: 3", repStyle);
+    repTimer = new Timer(timerStyle);
+    repTimer.start();
+    repLabel.setAlignment(Align.center);
 
     // Add everything
     Value scale = Value.percentWidth(0.04f, table);
@@ -124,9 +136,16 @@ public class UIOverlay {
     table.add().expandX().width(timerWidth);
     table.add(recipeDisplay).right().top().width(scale);
     table.row();
-    table.add(resultLabel).colspan(3);
+    table.add(resultLabel1).colspan(3);
     table.row();
     table.add(resultTimer).colspan(3);
+    table.row();
+    table.add(resultLabel2).colspan(3);
+    table.row();
+    table.add(resultRep).colspan(3);
+    table.row();
+    table.add().expandY();
+    table.add(repLabel).bottom().width(timerWidth).height(scale);
   }
 
   /**
@@ -135,8 +154,12 @@ public class UIOverlay {
   public void init() {
     timer.reset();
     timer.start();
-    resultLabel.setVisible(false);
+    rep = 1;
+    updateRep();
+    resultLabel1.setVisible(false);
     resultTimer.setVisible(false);
+    resultLabel2.setVisible(false);
+    resultRep.setVisible(false);
     updateChefUI(null);
   }
 
@@ -182,9 +205,12 @@ public class UIOverlay {
    * Show the label displaying that the game has finished along with the time it took to complete.
    */
   public void finishGameUI() {
-    resultLabel.setVisible(true);
+    resultLabel1.setVisible(true);
     resultTimer.setTime(timer.getTime());
     resultTimer.setVisible(true);
+    resultLabel2.setVisible(true);
+    resultRep.setText(Integer.toString(rep));
+    resultRep.setVisible(true);
     timer.stop();
   }
 
@@ -226,10 +252,15 @@ public class UIOverlay {
     recipeCountLabel.setText(remainingRecipes);
   }
 
-  public static void startTimer() {
-    timer.start();
-  }
-  public static void stopTimer() {
-    timer.stop();
+  public void updateRep(){
+    if (repTimer.getTime() < 60) {
+      rep += 1;
+    } else {
+      rep -= 1;
+    }
+    repLabel.setText("Reputation: " + rep);
+
+    repTimer.reset();
+    repTimer.start();
   }
 }
