@@ -93,13 +93,13 @@ public class RecipeStation extends Station {
         if (pattyCount >= 1 && bunCount >= 1 && nearbyChef.getStack().hasSpace()) {
           actionTypes.add(ActionType.MAKE_BURGER);
         }
-        if (tomatoCount >= 1 && lettuceCount >= 1 && nearbyChef.getStack().hasSpace()) {
+        else if (tomatoCount >= 1 && lettuceCount >= 1 && nearbyChef.getStack().hasSpace()) {
           actionTypes.add(ActionType.MAKE_SALAD);
         }
-        if (cheeseCount >= 1 && pizzaBaseCount >= 1 && nearbyChef.getStack().hasSpace()) {
+        else if (cheeseCount >= 1 && pizzaBaseCount >= 1 && nearbyChef.getStack().hasSpace()) {
           actionTypes.add(ActionType.MAKE_PIZZA);
         }
-        if (cheeseCount >= 1 && potatoCount >= 1 && nearbyChef.getStack().hasSpace()) {
+        else if (cheeseCount >= 1 && potatoCount >= 1 && nearbyChef.getStack().hasSpace()) {
           actionTypes.add(ActionType.MAKE_JACKETPOTATO);
         }
         else {
