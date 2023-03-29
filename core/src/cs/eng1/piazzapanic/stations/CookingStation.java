@@ -23,6 +23,7 @@ public class CookingStation extends Station {
   protected Ingredient currentIngredient;
   protected float timeCooked;
   protected final float totalTimeToCook = 10f;
+  protected final float totalTimeToBurn = 5f;
   private boolean progressVisible = false;
 
   /**
@@ -46,6 +47,9 @@ public class CookingStation extends Station {
     currentIngredient = null;
     timeCooked = 0;
     progressVisible = false;
+    uiController.hideBurntBar(this);
+    inUse = false;
+    done = false;
     super.reset();
   }
 
@@ -57,20 +61,43 @@ public class CookingStation extends Station {
    */
   @Override
   public void act(float delta) {
-    if (inUse) {
+    if (inUse && !done) {
       timeCooked += delta;
       uiController.updateProgressValue(this, (timeCooked / totalTimeToCook) * 100f);
       if (timeCooked >= totalTimeToCook && progressVisible) {
         if (currentIngredient instanceof Patty && !((Patty) currentIngredient).getIsHalfCooked()) {
           ((Patty) currentIngredient).setHalfCooked();
+          done = true;
+          uiController.showBurningBar(this);
+          timeCooked = 0;
         } else if (currentIngredient instanceof Patty
             && ((Patty) currentIngredient).getIsHalfCooked() && !currentIngredient.getIsCooked()) {
           currentIngredient.setIsCooked(true);
+          done = true;
+          uiController.showBurningBar(this);
+          timeCooked = 0;
         } else if (currentIngredient instanceof PizzaBase && !currentIngredient.getIsCooked()) {
           currentIngredient.setIsCooked(true);
+          done = true;
+          uiController.showBurningBar(this);
+          timeCooked = 0;
         }
         uiController.hideProgressBar(this);
         progressVisible = false;
+        uiController.showActions(this, getActionTypes());
+      }
+    } else if (inUse && done) {
+      timeCooked += delta;
+      uiController.updateBurningValue(this, (timeCooked / totalTimeToBurn) * 100f);
+      if (timeCooked >= totalTimeToBurn) {
+        if (currentIngredient instanceof Patty) {
+          ((Patty) currentIngredient).setIsBurnt(true);
+        } else if (currentIngredient instanceof PizzaBase) {
+          currentIngredient.setIsBurnt(true);
+        }
+        uiController.hideBurntBar(this);
+        uiController.hideProgressBar(this);
+        done = false;
         uiController.showActions(this, getActionTypes());
       }
     }
@@ -114,8 +141,10 @@ public class CookingStation extends Station {
     } else {
       //check to see if total number of seconds has passed to progress the state of the patty.
       if (currentIngredient instanceof Patty && ((Patty) currentIngredient).getIsHalfCooked()
-          && !currentIngredient.getIsCooked() && !progressVisible) {
+          && !currentIngredient.getIsCooked() && !progressVisible && !currentIngredient.getIsBurnt()) {
         actionTypes.add(StationAction.ActionType.FLIP_ACTION);
+      } else if (currentIngredient.getIsBurnt()){
+        actionTypes.add(StationAction.ActionType.CLEAR_TABLE);
       } else if (currentIngredient.getIsCooked()) {
         actionTypes.add(StationAction.ActionType.GRAB_INGREDIENT);
       }
@@ -140,15 +169,20 @@ public class CookingStation extends Station {
         //ingredient has been cooking for.
         timeCooked = 0;
         inUse = true;
+        done = false;
         uiController.hideActions(this);
         uiController.showProgressBar(this);
+        uiController.hideBurntBar(this);
         progressVisible = true;
         break;
 
       case FLIP_ACTION:
         timeCooked = 0;
+        done = false;
+        ((Patty) currentIngredient).setFlipped();
         uiController.hideActions(this);
         uiController.showProgressBar(this);
+        uiController.hideBurntBar(this);
         progressVisible = true;
         break;
 
@@ -164,10 +198,18 @@ public class CookingStation extends Station {
       case GRAB_INGREDIENT:
         if (nearbyChef.canGrabIngredient()) {
           nearbyChef.grabIngredient(currentIngredient);
+          uiController.hideBurntBar(this);
           currentIngredient = null;
           inUse = false;
+          done = false;
         }
         uiController.showActions(this, getActionTypes());
+        break;
+      case CLEAR_TABLE:
+        reset();
+        uiController.showActions(this, getActionTypes());
+        break;
+      default:
         break;
     }
   }
