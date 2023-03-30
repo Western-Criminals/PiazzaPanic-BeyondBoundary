@@ -51,7 +51,7 @@ public class UIOverlay {
 
     // Initialise pointer image
     pointer = new Image(
-        new Texture("Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/blue_sliderDown.png"));
+        new Texture("Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/grey_sliderDown.png"));
     pointer.setScaling(Scaling.none);
 
     // Initialize UI for showing current chef
