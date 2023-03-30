@@ -82,8 +82,8 @@ public class UIOverlay {
     // Initialize the home button
     ImageButton homeButton = game.getButtonManager().createImageButton(new TextureRegionDrawable(
             new Texture(
-                Gdx.files.internal("Kenney-Game-Assets-1/2D assets/Game Icons/PNG/White/1x/home.png"))),
-        ButtonManager.ButtonColour.BLUE, -1.5f);
+                Gdx.files.internal("Kenney-Game-Assets-1/2D assets/Game Icons/PNG/Black/1x/pause.png"))),
+        ButtonColour.GREY, -1.5f);
     homeButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
