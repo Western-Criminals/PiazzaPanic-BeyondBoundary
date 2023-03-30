@@ -1,7 +1,5 @@
 package cs.eng1.piazzapanic.ui;
 
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,22 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import cs.eng1.piazzapanic.PiazzaPanicGame;
-import cs.eng1.piazzapanic.screens.HomeScreen;
+import cs.eng1.piazzapanic.screens.GameScreen;
 import cs.eng1.piazzapanic.ui.ButtonManager.ButtonColour;
-import cs.eng1.piazzapanic.ui.UIOverlay;
 
 public class PauseOverlay {
-
-  private final Stage uiStage;
   private final Table table;
-  private static UIOverlay uiOverlay = null;
-  PiazzaPanicGame game;
-
-
   public PauseOverlay(final PiazzaPanicGame game) {
-    this.game = game;
     table = new Table();
     table.setFillParent(true);
     table.setVisible(false);
@@ -36,9 +25,6 @@ public class PauseOverlay {
     TextureRegionDrawable textureRegionDrawableBg = new TextureRegionDrawable(
         new Texture(bgPixmap));
     table.setBackground(textureRegionDrawableBg);
-    ScreenViewport uiViewport = new ScreenViewport();
-    uiStage = new Stage(uiViewport);
-    uiOverlay = new UIOverlay(uiStage, game);
 
     Label paused = new Label("Paused",
             new Label.LabelStyle(game.getFontManager().getTitleFont(), null));
@@ -48,8 +34,16 @@ public class PauseOverlay {
     resumeButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        //uiOverlay.startTimer();
         hide();
+      }
+    });
+
+    TextButton settingsButton = game.getButtonManager()
+            .createTextButton("Settings", ButtonColour.BLUE);
+    settingsButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        GameScreen.showSettingsMenu();
       }
     });
 
@@ -65,9 +59,11 @@ public class PauseOverlay {
 
     table.add(paused);
     table.row();
-    table.add(homeButton).padTop(20f);
-    table.row();
     table.add(resumeButton).padTop(20f);
+    table.row();
+    table.add(settingsButton).padTop(20f);
+    table.row();
+    table.add(homeButton).padTop(20f);
   }
 
 

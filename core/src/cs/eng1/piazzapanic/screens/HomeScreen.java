@@ -18,6 +18,7 @@ import cs.eng1.piazzapanic.ui.TutorialOverlay;
 public class HomeScreen implements Screen {
 
   private final Stage uiStage;
+  private SettingsOverlay settingsOverlay;
 
   public HomeScreen(final PiazzaPanicGame game) {
     // Initialize the root UI stage and table
@@ -29,9 +30,6 @@ public class HomeScreen implements Screen {
 
     final TutorialOverlay tutorialOverlay = game.getTutorialOverlay();
     tutorialOverlay.addToStage(uiStage);
-
-    final SettingsOverlay settingsOverlay = game.getSettingsOverlay();
-    settingsOverlay.addToStage(uiStage);
 
     Label welcomeLabel = new Label("Welcome to Piazza Panic!",
         new Label.LabelStyle(game.getFontManager().getTitleFont(), null));
@@ -61,6 +59,8 @@ public class HomeScreen implements Screen {
     settingsButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
+        settingsOverlay = game.getSettingsOverlay();
+        settingsOverlay.addToStage(uiStage);
         settingsOverlay.show();
       }
     });

@@ -41,7 +41,7 @@ public class StationUIController {
  * Keep track of burning items in a station.
  */
   public void addBurning(Station station) {
-    BurningUI buttons = new BurningUI(station, game);
+    BurningUI buttons = new BurningUI(station);
     uiStage.addActor(buttons);
     burningUI.put(station.getId(), buttons);
   }

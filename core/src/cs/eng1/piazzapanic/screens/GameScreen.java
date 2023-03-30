@@ -37,7 +37,7 @@ import java.util.HashMap;
 public class GameScreen implements Screen {
 
   private final Stage stage;
-  private final Stage uiStage;
+  private static Stage uiStage = null;
   private final ChefManager chefManager;
   private final OrthogonalTiledMapRenderer tileMapRenderer;
   private final StationUIController stationUIController;
@@ -46,8 +46,11 @@ public class GameScreen implements Screen {
   private final CustomerManager customerManager;
   private boolean isFirstFrame = true;
   private static PauseOverlay pauseOverlay = null;
+  private static PiazzaPanicGame game;
 
   public GameScreen(final PiazzaPanicGame game) {
+    GameScreen.game = game;
+
     TiledMap map = new TmxMapLoader().load("main-game-map.tmx");
     int sizeX = map.getProperties().get("width", Integer.class);
     int sizeY = map.getProperties().get("height", Integer.class);
@@ -59,7 +62,7 @@ public class GameScreen implements Screen {
     this.stage = new Stage(viewport);
 
     ScreenViewport uiViewport = new ScreenViewport();
-    this.uiStage = new Stage(uiViewport);
+    uiStage = new Stage(uiViewport);
     this.stationUIController = new StationUIController(uiStage, game);
     uiOverlay = new UIOverlay(uiStage, game);
 
@@ -221,7 +224,7 @@ public class GameScreen implements Screen {
   @Override
   public void resize(int width, int height) {
     this.stage.getViewport().update(width, height, true);
-    this.uiStage.getViewport().update(width, height, true);
+    uiStage.getViewport().update(width, height, true);
   }
 
   @Override
@@ -250,5 +253,10 @@ public class GameScreen implements Screen {
   public static void showPauseMenu() {
     pauseOverlay.show();
     //uiOverlay.stopTimer();
+  }
+  public static void showSettingsMenu() {
+    SettingsOverlay settingsOverlay = game.getSettingsOverlay();
+    settingsOverlay.addToStage(uiStage);
+    settingsOverlay.show();
   }
 }
