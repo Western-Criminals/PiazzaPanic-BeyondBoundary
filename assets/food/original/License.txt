@@ -10,3 +10,4 @@ chopped_lettuce.png - modified from glitch lettuce.png (also CC0)
 jacket_potato.png - modified from glitch lettuce.png (also CC0)
 fire.png - own work
 clear.png - own work
+coin.png - own work
