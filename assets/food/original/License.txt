@@ -8,3 +8,5 @@ burnt_pizza_base.png - own work
 chopped_tomato.png - modified from glitch tomato.png (also CC0)
 chopped_lettuce.png - modified from glitch lettuce.png (also CC0)
 jacket_potato.png - modified from glitch lettuce.png (also CC0)
+fire.png - own work
+clear.png - own work
