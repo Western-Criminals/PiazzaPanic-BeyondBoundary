@@ -55,7 +55,8 @@ public class CookingStation extends Station {
 
   /**
    * Called every frame. Used to update the progress bar and check if enough time has passed for the
-   * ingredient to be changed to its half cooked or cooked variant
+   * ingredient to be changed to its half cooked or cooked variant. It also updates the progress of
+   * the burning bar.
    *
    * @param delta Time in seconds since the last frame.
    */
@@ -86,15 +87,11 @@ public class CookingStation extends Station {
         progressVisible = false;
         uiController.showActions(this, getActionTypes());
       }
-    } else if (inUse && done) {
+    } else if (inUse) {
       timeCooked += delta;
       uiController.updateBurningValue(this, (timeCooked / totalTimeToBurn) * 100f);
       if (timeCooked >= totalTimeToBurn) {
-        if (currentIngredient instanceof Patty) {
-          ((Patty) currentIngredient).setIsBurnt(true);
-        } else if (currentIngredient instanceof PizzaBase) {
-          currentIngredient.setIsBurnt(true);
-        }
+        currentIngredient.setIsBurnt(true);
         uiController.hideBurntBar(this);
         uiController.hideProgressBar(this);
         done = false;
