@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -34,6 +35,9 @@ public class SettingsOverlay {
         new Texture(bgPixmap));
     table.setBackground(textureRegionDrawableBg);
 
+    Label title = new Label("Settings",
+            new Label.LabelStyle(game.getFontManager().getTitleFont(), Color.BLACK));
+
     TextButton backButton = game.getButtonManager()
         .createTextButton("Back", ButtonManager.ButtonColour.GREY);
     backButton.addListener(new ClickListener() {
@@ -55,9 +59,12 @@ public class SettingsOverlay {
         }
       }
     });
+
+    table.add(title).padBottom(20f);
+    table.row();
     table.add(fullscreenCheckbox);
     table.row();
-    table.add(backButton).padTop(20f);
+    table.add(backButton).padTop(60f);
   }
 
 

@@ -41,7 +41,7 @@ public class GameScreen implements Screen {
   private final ChefManager chefManager;
   private final OrthogonalTiledMapRenderer tileMapRenderer;
   private final StationUIController stationUIController;
-  private static UIOverlay uiOverlay = null;
+  public static UIOverlay uiOverlay = null;
   private final FoodTextureManager foodTextureManager;
   private final CustomerManager customerManager;
   private boolean isFirstFrame = true;

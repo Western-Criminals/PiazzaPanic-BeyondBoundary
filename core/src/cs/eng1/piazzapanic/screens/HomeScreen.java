@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import cs.eng1.piazzapanic.PiazzaPanicGame;
 import cs.eng1.piazzapanic.ui.ButtonManager;
+import cs.eng1.piazzapanic.ui.PlayOverlay;
 import cs.eng1.piazzapanic.ui.SettingsOverlay;
 import cs.eng1.piazzapanic.ui.TutorialOverlay;
 
@@ -31,6 +32,9 @@ public class HomeScreen implements Screen {
     final TutorialOverlay tutorialOverlay = game.getTutorialOverlay();
     tutorialOverlay.addToStage(uiStage);
 
+    final PlayOverlay playOverlay = game.getPlayOverlay();
+    playOverlay.addToStage(uiStage);
+
     Label welcomeLabel = new Label("Welcome to Piazza Panic!",
         new Label.LabelStyle(game.getFontManager().getTitleFont(), null));
 
@@ -41,7 +45,7 @@ public class HomeScreen implements Screen {
     startButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        game.loadGameScreen();
+        playOverlay.show();
       }
     });
     TextButton tutorialButton = game.getButtonManager()

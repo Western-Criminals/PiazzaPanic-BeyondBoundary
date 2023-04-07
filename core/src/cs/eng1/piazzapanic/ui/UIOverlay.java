@@ -38,7 +38,9 @@ public class UIOverlay {
   private int rep;
   private final Label repLabel;
   private static Timer repTimer = null;
+  private final LabelStyle repStyle;
   public static Value scale = null;
+  public static int patience = 45;
 
   public UIOverlay(Stage uiStage, final PiazzaPanicGame game) {
     this.game = game;
@@ -118,7 +120,7 @@ public class UIOverlay {
     resultRep.setVisible(false);
 
     // Initialise rep points label
-    LabelStyle repStyle = new LabelStyle(game.getFontManager().getHeaderFont(), Color.BLACK);
+    repStyle = new LabelStyle(game.getFontManager().getHeaderFont(), Color.BLACK);
     repStyle.background = new TextureRegionDrawable(new Texture(
             "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/grey_button_gradient_down.png"));
     repLabel = new Label("Reputation: 3", repStyle);
@@ -254,7 +256,7 @@ public class UIOverlay {
   }
 
   public void updateRep(){
-    if (repTimer.getTime() < 60) {
+    if (repTimer.getTime() < patience) {
       rep += 1;
     } else {
       rep -= 1;
@@ -263,5 +265,25 @@ public class UIOverlay {
 
     repTimer.reset();
     repTimer.start();
+  }
+  public void updatePatience(int difficulty){
+    switch (difficulty){
+      case 0:
+        patience = 60;
+        repStyle.background = new TextureRegionDrawable(new Texture(
+                "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/green_button_outline_up.png"));
+        break;
+      case 1:
+        patience = 40;
+        repStyle.background = new TextureRegionDrawable(new Texture(
+                "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/yellow_button_outline_up.png"));
+        break;
+      case 2:
+        patience = 25;
+        repStyle.background = new TextureRegionDrawable(new Texture(
+                "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/red_button_outline_up.png"));
+        break;
+
+    }
   }
 }

@@ -14,6 +14,7 @@ public class PiazzaPanicGame extends Game {
   private TutorialOverlay tutorialOverlay;
   private SettingsOverlay settingsOverlay;
   private PauseOverlay pauseOverlay;
+  private PlayOverlay playOverlay;
 
   @Override
   public void create() {
@@ -22,6 +23,7 @@ public class PiazzaPanicGame extends Game {
     tutorialOverlay = new TutorialOverlay(this);
     settingsOverlay = new SettingsOverlay(this);
     pauseOverlay    = new PauseOverlay(this);
+    playOverlay     = new PlayOverlay(this);
     loadHomeScreen();
   }
 
@@ -60,6 +62,9 @@ public class PiazzaPanicGame extends Game {
   }
   public PauseOverlay getPauseOverlay() {
     return pauseOverlay;
+  }
+  public PlayOverlay getPlayOverlay() {
+    return playOverlay;
   }
 
   public FontManager getFontManager() {
