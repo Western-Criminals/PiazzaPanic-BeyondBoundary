@@ -56,7 +56,7 @@ public class Recipe {
         break;
       case "jacket_potato":
         ingredientTypes.add("cheese");
-        ingredientTypes.add("potato");
+        ingredientTypes.add("potato_cooked");
         break;
     }
     return ingredientTypes;

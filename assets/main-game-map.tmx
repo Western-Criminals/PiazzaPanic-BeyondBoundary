@@ -76,7 +76,7 @@
    <properties>
     <property name="actionAlignment" value="TOP"/>
     <property name="collisionObjectIDs" value="22"/>
-    <property name="ingredients" value="patty,pizza_base"/>
+    <property name="ingredients" value="patty,pizza_base,potato"/>
     <property name="stationType" value="cookingStation"/>
    </properties>
   </object>
@@ -84,7 +84,7 @@
    <properties>
     <property name="actionAlignment" value="BOTTOM"/>
     <property name="collisionObjectIDs" value="24"/>
-    <property name="ingredients" value="patty,pizza_base"/>
+    <property name="ingredients" value="patty,pizza_base,potato"/>
     <property name="stationType" value="cookingStation"/>
    </properties>
   </object>
