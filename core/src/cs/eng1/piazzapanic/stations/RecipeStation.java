@@ -35,7 +35,7 @@ public class RecipeStation extends Station {
   protected int pizzaBaseCount = 0;
   protected int potatoCount = 0;
   private Recipe completedRecipe = null;
-  private LongBoiBank bank = new LongBoiBank();
+  public static LongBoiBank bank = new LongBoiBank();
 
   /**
    * The constructor method for the class
