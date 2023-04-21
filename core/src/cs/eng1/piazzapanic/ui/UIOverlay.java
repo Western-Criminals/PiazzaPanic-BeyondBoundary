@@ -41,7 +41,6 @@ public class UIOverlay {
   private final LabelStyle repStyle;
   public static Value scale = null;
   public static int patience = 45;
-  private final LabelStyle coinStyle;
   LongBoiBankUI bankLabel;
 
   public UIOverlay(Stage uiStage, final PiazzaPanicGame game) {
@@ -111,8 +110,19 @@ public class UIOverlay {
     recipeCountLabel = new Label("0", counterStyle);
 
     // Initialize bank label
-    coinStyle = new Label.LabelStyle(game.getFontManager().getTitleFont(), Color.PURPLE);
+    Stack balance = new Stack();
+    LabelStyle coinStyle = new LabelStyle(game.getFontManager().getHeaderFont(), Color.BLACK);
+//    coinStyle.background = new TextureRegionDrawable(new Texture(
+//            "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/grey_button_gradient_down.png"));
     bankLabel = new LongBoiBankUI(coinStyle);
+    Image coinTexture = new Image(new Texture("food/original/coin.png"));
+    HorizontalGroup balanceElements = new HorizontalGroup();
+    balanceElements.addActor(coinTexture);
+    balanceElements.addActor(bankLabel);
+    balanceElements.align(Align.left);
+    balanceElements.padLeft(2f);
+    balance.add(new Image(new Texture("Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/grey_button_gradient_down.png")));
+    balance.add(balanceElements);
 
     // Initialize winning label
     LabelStyle labelStyle = new Label.LabelStyle(game.getFontManager().getTitleFont(), null);
@@ -136,13 +146,13 @@ public class UIOverlay {
 
     // Add everything
     scale = Value.percentWidth(0.04f, table);
-    Value timerWidth = Value.percentWidth(0.2f, table);
+//    Value timerWidth = Value.percentWidth(0.2f, table);
     table.add(chefDisplay).left().width(scale).height(scale);
-    table.add(timer).expandX().width(timerWidth).height(scale);
+    table.add(timer).expandX().width(timer.getWidth() + 10f).height(scale);
     table.add(homeButton).right().width(scale).height(scale);
     table.row().padTop(10f);
     table.add(ingredientStackDisplay).left().top().width(scale);
-    table.add().expandX().width(timerWidth);
+    table.add().expandX();
     table.add(recipeDisplay).right().top().width(scale);
     table.row();
     table.add(resultLabel1).colspan(3);
@@ -152,11 +162,10 @@ public class UIOverlay {
     table.add(resultLabel2).colspan(3);
     table.row();
     table.add(resultRep).colspan(3);
-    table.row();
-    table.add().expandY();
-    table.add(repLabel).bottom().width(timerWidth).height(scale);
-    table.row();
-    table.add(bankLabel);
+    table.row().expandY();
+    table.add(repLabel).bottom().left().width(repLabel.getWidth()).height(scale);
+    table.add().bottom().expandX();
+    table.add(balance).bottom().right().width(balance.getWidth() + 15f).height(scale);
   }
 
   /**
