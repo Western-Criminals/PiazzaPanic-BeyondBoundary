@@ -111,7 +111,7 @@ public class UIOverlay {
 
     // Initialize bank label
     Stack balance = new Stack();
-    LabelStyle coinStyle = new LabelStyle(game.getFontManager().getHeaderFont(), Color.BLACK);
+    LabelStyle coinStyle = new LabelStyle(game.getFontManager().getHeaderFont(), Color.PURPLE);
 //    coinStyle.background = new TextureRegionDrawable(new Texture(
 //            "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/grey_button_gradient_down.png"));
     bankLabel = new LongBoiBankUI(coinStyle);
