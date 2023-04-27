@@ -86,6 +86,8 @@ project(":tests") {
     sourceSets.test.java.srcDirs = ["src/"]
     sourceSets.main.resources.srcDirs += ['assets']
 
+
+
     dependencies {
 
         implementation project(":core")
