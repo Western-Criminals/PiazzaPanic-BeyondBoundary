@@ -280,6 +280,9 @@ public class UIOverlay {
       rep -= 1;
     }
     repLabel.setText("Reputation: " + rep);
+    if (rep == 0) {
+        gameOverUI();
+    }
 
     repTimer.reset();
     repTimer.start();
@@ -303,5 +306,12 @@ public class UIOverlay {
         break;
 
     }
+  }
+  public void gameOverUI() {
+    resultLabel1.setText("Game Over");
+    resultLabel1.setVisible(true);
+    resultLabel2.setText("Don't let your reputation reach 0!");
+    resultLabel2.setVisible(true);
+    timer.stop();
   }
 }
