@@ -37,3 +37,10 @@ jobs:
       with:
         name: piazza-panic
         path: desktop/build/libs/desktop-1.0.jar
+        
+        
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+
