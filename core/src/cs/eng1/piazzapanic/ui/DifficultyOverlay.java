@@ -53,7 +53,7 @@ public class DifficultyOverlay {
       @Override
       public void clicked(InputEvent event, float x, float y) {
         hide();
-        game.loadGameScreen();
+        game.loadGameScreen(false);
         uiOverlay.updatePatience(0);
       }
     });
@@ -64,7 +64,7 @@ public class DifficultyOverlay {
       @Override
       public void clicked(InputEvent event, float x, float y) {
         hide();
-        game.loadGameScreen();
+        game.loadGameScreen(false);
         uiOverlay.updatePatience(1);
       }
     });
@@ -75,16 +75,31 @@ public class DifficultyOverlay {
       @Override
       public void clicked(InputEvent event, float x, float y) {
         hide();
-        game.loadGameScreen();
+        game.loadGameScreen(false);
         uiOverlay.updatePatience(2);
       }
     });
+
+    TextButton endlessButton = game.getButtonManager()
+            .createTextButton("Endless", ButtonColour.GREEN);
+    endlessButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        hide();
+        game.loadGameScreen(true);
+        uiOverlay.updatePatience(0);
+      }
+    });
+
     table.add();
     table.add(play).padBottom(20f);
     table.row();
     table.add(normalButton);
     table.add(insaneButton);
     table.add(lunaticButton);
+    table.row();
+    table.add();
+    table.add(endlessButton).padTop(30f);
     table.row();
     table.add();
     table.add(backButton).padTop(60f);

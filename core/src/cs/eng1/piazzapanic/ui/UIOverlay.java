@@ -40,7 +40,7 @@ public class UIOverlay {
   private static Timer repTimer = null;
   private final LabelStyle repStyle;
   public static Value scale = null;
-  public static int patience = 45;
+  public double patience = 60;
   LongBoiBankUI bankLabel;
 
   public UIOverlay(Stage uiStage, final PiazzaPanicGame game) {
@@ -108,12 +108,13 @@ public class UIOverlay {
     // Initialize counter for showing remaining recipes
     LabelStyle counterStyle = new LabelStyle(game.getFontManager().getHeaderFont(), Color.BLACK);
     recipeCountLabel = new Label("0", counterStyle);
+    if (game.isEndless) {
+      recipeCountLabel.setText((int) patience);
+    }
 
     // Initialize bank label
     Stack balance = new Stack();
     LabelStyle coinStyle = new LabelStyle(game.getFontManager().getHeaderFont(), Color.PURPLE);
-//    coinStyle.background = new TextureRegionDrawable(new Texture(
-//            "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/grey_button_gradient_down.png"));
     bankLabel = new LongBoiBankUI(coinStyle);
     Image coinTexture = new Image(new Texture("food/original/coin.png"));
     HorizontalGroup balanceElements = new HorizontalGroup();
@@ -132,7 +133,7 @@ public class UIOverlay {
     resultLabel2.setVisible(false);
     resultTimer = new Timer(labelStyle);
     resultTimer.setVisible(false);
-    resultRep = new Label("3",labelStyle);
+    resultRep = new Label(Integer.toString(rep),labelStyle);
     resultRep.setVisible(false);
 
     // Initialise rep points label
@@ -176,7 +177,7 @@ public class UIOverlay {
     timer.start();
     repTimer.reset();
     repTimer.start();
-    rep = 2;
+    rep = 3;
     resultLabel1.setVisible(false);
     resultTimer.setVisible(false);
     resultLabel2.setVisible(false);
@@ -272,7 +273,6 @@ public class UIOverlay {
   public void updateRecipeCounter(int remainingRecipes) {
     recipeCountLabel.setText(remainingRecipes);
   }
-
   public void updateRep(){
     if (repTimer.getTime() < patience) {
       rep += 1;
@@ -283,7 +283,11 @@ public class UIOverlay {
     if (rep == 0) {
         gameOverUI();
     }
-
+    if (game.isEndless) {
+      patience = (patience * 5 / 6) + 4;
+      recipeCountLabel.setText((int) patience);
+      System.out.println("Patience: " + patience);
+    }
     repTimer.reset();
     repTimer.start();
   }
@@ -291,8 +295,13 @@ public class UIOverlay {
     switch (difficulty){
       case 0:
         patience = 60;
-        repStyle.background = new TextureRegionDrawable(new Texture(
-                "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/blue_button_outline_up.png"));
+        if (!game.isEndless) {
+          repStyle.background = new TextureRegionDrawable(new Texture(
+                  "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/blue_button_outline_up.png"));
+        } else {
+          repStyle.background = new TextureRegionDrawable(new Texture(
+                  "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/green_button_outline_up.png"));
+        }
         break;
       case 1:
         patience = 40;

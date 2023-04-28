@@ -2,6 +2,7 @@ package cs.eng1.piazzapanic.food;
 
 import com.badlogic.gdx.utils.Queue;
 import cs.eng1.piazzapanic.food.recipes.*;
+import cs.eng1.piazzapanic.screens.GameScreen;
 import cs.eng1.piazzapanic.stations.RecipeStation;
 import cs.eng1.piazzapanic.ui.UIOverlay;
 import java.util.LinkedList;
@@ -14,8 +15,12 @@ public class CustomerManager {
   private Recipe currentOrder;
   private final List<RecipeStation> recipeStations;
   private final UIOverlay overlay;
+  public boolean isEndless;
+  int recipeIndex;
+  private Recipe[] possibleRecipes;
 
-  public CustomerManager(UIOverlay overlay) {
+  public CustomerManager(UIOverlay overlay, boolean isEndless) {
+    this.isEndless = isEndless;
     this.overlay = overlay;
     this.recipeStations = new LinkedList<>();
     customerOrders = new Queue<>();
@@ -27,17 +32,22 @@ public class CustomerManager {
    * @param textureManager The manager of food textures that can be passed to the recipes
    */
   public void init(FoodTextureManager textureManager) {
-    Recipe[] possibleRecipes = new Recipe[]{new Humborge(textureManager), new Salad(textureManager), new JacketPotato(textureManager), new Pizza(textureManager)};
-
+    possibleRecipes = new Recipe[]{new Humborge(textureManager), new Salad(textureManager), new JacketPotato(textureManager), new Pizza(textureManager)};
     // Salad, Burger, Burger, Salad, Burger. This can be replaced by randomly selecting from
     // possibleRecipes or by using another scenario
+
     customerOrders.clear();
-    int[] recipeIndices = new int[5];
-    for (int i = 0; i < 5; i++) {
-      recipeIndices[i] = ThreadLocalRandom.current().nextInt(0, 4);
-    }
-    for (int recipeIndex : recipeIndices) {
-      customerOrders.addLast(possibleRecipes[recipeIndex]);
+    if (!isEndless) {
+      int[] recipeIndices = new int[5];
+      for (int i = 0; i < 5; i++) {
+        recipeIndices[i] = ThreadLocalRandom.current().nextInt(0, 4);
+      }
+      for (int recipeIndex : recipeIndices) {
+        customerOrders.addLast(possibleRecipes[recipeIndex]);
+      }
+    } else {
+      recipeIndex = ThreadLocalRandom.current().nextInt(0, 4);
+      currentOrder = possibleRecipes[recipeIndex];
     }
   }
 
@@ -59,17 +69,23 @@ public class CustomerManager {
    * are completed, then show the winning UI.
    */
   public void nextRecipe() {
-    if (customerOrders.isEmpty()) {
-      currentOrder = null;
-      overlay.updateRecipeCounter(0);
+    if (!isEndless) {
+      if (customerOrders.isEmpty()) {
+        currentOrder = null;
+        overlay.updateRecipeCounter(0);
+      } else {
+        overlay.updateRecipeCounter(customerOrders.size);
+        currentOrder = customerOrders.removeFirst();
+      }
     } else {
-      overlay.updateRecipeCounter(customerOrders.size);
-      currentOrder = customerOrders.removeFirst();
+      recipeIndex = ThreadLocalRandom.current().nextInt(0, 4);
+      currentOrder = possibleRecipes[recipeIndex];
     }
-
     notifyRecipeStations();
     overlay.updateRecipeUI(currentOrder);
-    overlay.updateRep();
+    if (!GameScreen.isFirstFrame) {
+      overlay.updateRep();
+    }
     if (currentOrder == null) {
       overlay.finishGameUI();
     }

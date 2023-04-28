@@ -44,11 +44,11 @@ public class GameScreen implements Screen {
   public static UIOverlay uiOverlay = null;
   private final FoodTextureManager foodTextureManager;
   private final CustomerManager customerManager;
-  private boolean isFirstFrame = true;
+  public static boolean isFirstFrame = true;
   private static PauseOverlay pauseOverlay = null;
   private static PiazzaPanicGame game;
 
-  public GameScreen(final PiazzaPanicGame game) {
+  public GameScreen(final PiazzaPanicGame game, boolean isEndless) {
     GameScreen.game = game;
 
     TiledMap map = new TmxMapLoader().load("main-game-map.tmx");
@@ -76,7 +76,7 @@ public class GameScreen implements Screen {
 
     foodTextureManager = new FoodTextureManager();
     chefManager = new ChefManager(tileUnitSize * 2.5f, collisionLayer, uiOverlay);
-    customerManager = new CustomerManager(uiOverlay);
+    customerManager = new CustomerManager(uiOverlay, isEndless);
 
     // Add tile objects
     initialiseStations(tileUnitSize, objectLayer);

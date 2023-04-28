@@ -16,6 +16,7 @@ public class PiazzaPanicGame extends Game {
   private PauseOverlay pauseOverlay;
   private PlayOverlay playOverlay;
   private DifficultyOverlay difficultyOverlay;
+  public boolean isEndless;
 
   @Override
   public void create() {
@@ -48,10 +49,9 @@ public class PiazzaPanicGame extends Game {
     setScreen(homeScreen);
   }
 
-  public void loadGameScreen() {
-    if (gameScreen == null) {
-      gameScreen = new GameScreen(this);
-    }
+  public void loadGameScreen(boolean isEndless) {
+    this.isEndless = isEndless;
+    gameScreen = new GameScreen(this, isEndless);
     setScreen(gameScreen);
   }
 
