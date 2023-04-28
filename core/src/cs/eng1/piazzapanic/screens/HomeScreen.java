@@ -11,15 +11,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import cs.eng1.piazzapanic.PiazzaPanicGame;
-import cs.eng1.piazzapanic.ui.ButtonManager;
-import cs.eng1.piazzapanic.ui.PlayOverlay;
-import cs.eng1.piazzapanic.ui.SettingsOverlay;
-import cs.eng1.piazzapanic.ui.TutorialOverlay;
+import cs.eng1.piazzapanic.ui.*;
+
 
 public class HomeScreen implements Screen {
 
   private final Stage uiStage;
   private SettingsOverlay settingsOverlay;
+  static DifficultyOverlay difficultyOverlay = null;
 
   public HomeScreen(final PiazzaPanicGame game) {
     // Initialize the root UI stage and table
@@ -34,6 +33,9 @@ public class HomeScreen implements Screen {
 
     final PlayOverlay playOverlay = game.getPlayOverlay();
     playOverlay.addToStage(uiStage);
+
+    difficultyOverlay = game.getDifficultyOverlay();
+    difficultyOverlay.addToStage(uiStage);
 
     Label welcomeLabel = new Label("Welcome to Piazza Panic!",
         new Label.LabelStyle(game.getFontManager().getTitleFont(), null));
@@ -88,6 +90,9 @@ public class HomeScreen implements Screen {
     table.add(settingsButton).padBottom(20f);
     table.row();
     table.add(quitButton);
+  }
+  public static void showDifficultyMenu() {
+    difficultyOverlay.show();
   }
 
   @Override

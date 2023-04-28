@@ -15,15 +15,17 @@ public class PiazzaPanicGame extends Game {
   private SettingsOverlay settingsOverlay;
   private PauseOverlay pauseOverlay;
   private PlayOverlay playOverlay;
+  private DifficultyOverlay difficultyOverlay;
 
   @Override
   public void create() {
-    fontManager     = new FontManager();
-    buttonManager   = new ButtonManager(fontManager);
-    tutorialOverlay = new TutorialOverlay(this);
-    settingsOverlay = new SettingsOverlay(this);
-    pauseOverlay    = new PauseOverlay(this);
-    playOverlay     = new PlayOverlay(this);
+    fontManager       = new FontManager();
+    buttonManager     = new ButtonManager(fontManager);
+    tutorialOverlay   = new TutorialOverlay(this);
+    settingsOverlay   = new SettingsOverlay(this);
+    pauseOverlay      = new PauseOverlay(this);
+    playOverlay       = new PlayOverlay(this);
+    difficultyOverlay = new DifficultyOverlay(this);
     loadHomeScreen();
   }
 
@@ -66,7 +68,9 @@ public class PiazzaPanicGame extends Game {
   public PlayOverlay getPlayOverlay() {
     return playOverlay;
   }
-
+  public DifficultyOverlay getDifficultyOverlay() {
+    return difficultyOverlay;
+  }
   public FontManager getFontManager() {
     return fontManager;
   }

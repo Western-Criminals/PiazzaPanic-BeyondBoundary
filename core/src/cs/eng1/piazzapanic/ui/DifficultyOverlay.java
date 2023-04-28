@@ -6,20 +6,23 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import cs.eng1.piazzapanic.PiazzaPanicGame;
-import cs.eng1.piazzapanic.screens.HomeScreen;
 import cs.eng1.piazzapanic.ui.ButtonManager.ButtonColour;
 
-public class PlayOverlay {
+import static cs.eng1.piazzapanic.screens.GameScreen.uiOverlay;
+
+public class DifficultyOverlay {
 
   private final Table table;
   PiazzaPanicGame game;
 
 
-  public PlayOverlay(final PiazzaPanicGame game) {
+  public DifficultyOverlay(final PiazzaPanicGame game) {
     this.game = game;
     table = new Table();
     table.setFillParent(true);
@@ -41,29 +44,49 @@ public class PlayOverlay {
       }
     });
 
-    TextButton newButton = game.getButtonManager()
-            .createTextButton("New Game", ButtonColour.GREEN);
-    newButton.addListener(new ClickListener() {
+    Label play = new Label("Play",
+            new Label.LabelStyle(game.getFontManager().getTitleFont(), null));
+
+    TextButton normalButton = game.getButtonManager()
+            .createTextButton("Normal", ButtonColour.BLUE);
+    normalButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
         hide();
-        HomeScreen.showDifficultyMenu();
+        game.loadGameScreen();
+        uiOverlay.updatePatience(0);
       }
     });
 
-    TextButton loadButton = game.getButtonManager()
-            .createTextButton("Load Game", ButtonColour.BLUE);
-    loadButton.addListener(new ClickListener() {
+    TextButton insaneButton = game.getButtonManager()
+            .createTextButton("Insane", ButtonColour.RED);
+    insaneButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        //add load game functionality
+        hide();
+        game.loadGameScreen();
+        uiOverlay.updatePatience(1);
       }
     });
-    HorizontalGroup buttons = new HorizontalGroup();
-    buttons.addActor(loadButton);
-    buttons.addActor(newButton);
-    table.add(buttons);
+
+    TextButton lunaticButton = game.getButtonManager()
+            .createTextButton("Lunatic", ButtonColour.VIOLET);
+    lunaticButton.addListener(new ClickListener() {
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        hide();
+        game.loadGameScreen();
+        uiOverlay.updatePatience(2);
+      }
+    });
+    table.add();
+    table.add(play).padBottom(20f);
     table.row();
+    table.add(normalButton);
+    table.add(insaneButton);
+    table.add(lunaticButton);
+    table.row();
+    table.add();
     table.add(backButton).padTop(60f);
   }
 
