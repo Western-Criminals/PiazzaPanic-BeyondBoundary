@@ -141,7 +141,6 @@ public class UIOverlay {
             "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/grey_button_gradient_down.png"));
     repLabel = new Label("Reputation: 3", repStyle);
     repTimer = new Timer(timerStyle);
-    repTimer.start();
     repLabel.setAlignment(Align.center);
 
     // Add everything
@@ -165,7 +164,7 @@ public class UIOverlay {
     table.row().expandY();
     table.add(repLabel).bottom().left().width(repLabel.getWidth()).height(scale);
     table.add().bottom().expandX();
-    table.add(balance).bottom().right().width(balance.getWidth() + 15f).height(scale);
+    table.add(balance).bottom().right().width(balance.getWidth() + 50f).height(scale);
   }
 
   /**
@@ -175,8 +174,9 @@ public class UIOverlay {
     bankLabel.reset();
     timer.reset();
     timer.start();
-    rep = 1;
-    updateRep();
+    repTimer.reset();
+    repTimer.start();
+    rep = 2;
     resultLabel1.setVisible(false);
     resultTimer.setVisible(false);
     resultLabel2.setVisible(false);
