@@ -11,6 +11,7 @@ import static org.junit.Assert.assertFalse;
 public class AssetTests {
     @Test
     public void testChefSpritesExist(){
+        // these tests confirm that assets are available
         assertTrue("If this fails, the 1st chef sprite is not available", Gdx.files.internal("../assets/Kenney-Game-Assets-2/2D assets/Topdown Shooter (620 assets)/PNG/Man Brown/manBrown_hold.png").exists());
         assertTrue("If this fails, the 2nd chef sprite is not available", Gdx.files.internal("../assets/Kenney-Game-Assets-2/2D assets/Topdown Shooter (620 assets)/PNG/Woman Green/womanGreen_hold.png").exists());
         assertTrue("If this fails, the 3rd chef sprite is not available", Gdx.files.internal("../assets/Kenney-Game-Assets-2/2D assets/Topdown Shooter (620 assets)/PNG/Man Blue/manBlue_hold.png").exists());
