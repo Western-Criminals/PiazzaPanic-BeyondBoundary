@@ -16,6 +16,8 @@ import cs.eng1.piazzapanic.chef.Chef;
 import cs.eng1.piazzapanic.food.ingredients.Ingredient;
 import cs.eng1.piazzapanic.food.recipes.Recipe;
 import cs.eng1.piazzapanic.screens.GameScreen;
+import cs.eng1.piazzapanic.stations.ChoppingStation;
+import cs.eng1.piazzapanic.stations.CookingStation;
 import cs.eng1.piazzapanic.ui.ButtonManager.ButtonColour;
 
 public class UIOverlay {
@@ -296,20 +298,32 @@ public class UIOverlay {
       case 0:
         patience = 60;
         if (!game.isEndless) {
+          CookingStation.totalTimeToBurn = 10f;
+          CookingStation.totalTimeToCook = 10f;
+          ChoppingStation.totalTimeToChop = 5f;
           repStyle.background = new TextureRegionDrawable(new Texture(
                   "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/blue_button_outline_up.png"));
         } else {
+          CookingStation.totalTimeToBurn = 5f;
+          CookingStation.totalTimeToCook = 8f;
+          ChoppingStation.totalTimeToChop = 8f;
           repStyle.background = new TextureRegionDrawable(new Texture(
                   "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/green_button_outline_up.png"));
         }
         break;
       case 1:
         patience = 40;
+        CookingStation.totalTimeToBurn = 5f;
+        CookingStation.totalTimeToCook = 8f;
+        ChoppingStation.totalTimeToChop = 8f;
         repStyle.background = new TextureRegionDrawable(new Texture(
                 "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/red_button_outline_up.png"));
         break;
       case 2:
         patience = 25;
+        CookingStation.totalTimeToBurn = 3f;
+        CookingStation.totalTimeToCook = 6f;
+        ChoppingStation.totalTimeToChop = 10f;
         repStyle.background = new TextureRegionDrawable(new Texture(
                 "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/violet_button_outline_up.png"));
         break;

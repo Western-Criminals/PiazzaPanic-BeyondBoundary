@@ -23,8 +23,8 @@ public class CookingStation extends Station {
   protected final Ingredient[] validIngredients;
   protected Ingredient currentIngredient;
   protected float timeCooked;
-  protected final float totalTimeToCook = 10f;
-  protected final float totalTimeToBurn = 5f;
+  public static float totalTimeToCook = 10f;
+  public static float totalTimeToBurn = 5f;
   private boolean progressVisible = false;
 
   /**
