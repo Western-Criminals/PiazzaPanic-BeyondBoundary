@@ -1,3 +1,13 @@
+```
+.__                             __________               .__        __  .__    .__                 
+______ |__|____  _____________________ \______   \_____    ____ |__| _____/  |_|  |__ |__| ____    ____   
+\____ \|  \__  \ \___   /\___   /\__  \ |     ___/\__  \  /    \|  |/ ___\   __\  |  \|  |/    \  / ___\  
+|  |_> >  |/ __ \_/    /  /    /  / __ \|    |     / __ \|   |  \  \  \___|  | |   Y  \  |   |  \/ /_/  > 
+|   __/|__(____  /_____ \/_____ \(____  /____|    (____  /___|  /__|\___  >__| |___|  /__|___|  /\___  /  
+|__|           \/      \/      \/     \/               \/     \/        \/          \/        \//_____/   
+```
+
+---
 # Piazza Panic
 
 ![Game Screenshot](screenshots/game.png)
@@ -169,3 +179,6 @@ enum. The station properties can be edited here too.
 
 - [libGDX](https://libgdx.com/dev/)
 - [Piazza Panic Documentation and JavaDoc](https://eng1-32.github.io/)
+
+---
+[![extras](https://i.4cdn.org/g/1594686780709.png)](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
