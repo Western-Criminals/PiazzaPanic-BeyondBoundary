@@ -15,6 +15,8 @@ import cs.eng1.piazzapanic.PiazzaPanicGame;
 import cs.eng1.piazzapanic.ui.ButtonManager.ButtonColour;
 
 import static cs.eng1.piazzapanic.screens.GameScreen.uiOverlay;
+import static cs.eng1.piazzapanic.ui.PlayOverlay.save;
+import static cs.eng1.piazzapanic.ui.UIOverlay.rep;
 
 public class DifficultyOverlay {
 
@@ -55,6 +57,14 @@ public class DifficultyOverlay {
         hide();
         game.loadGameScreen(false);
         uiOverlay.updatePatience(0);
+        rep = 3;
+        save.clear();
+        save.setDifficulty("normal");
+        try {
+          save.write("save.json");
+        } catch (Throwable e) {
+          throw new RuntimeException(e);
+        }
       }
     });
 
@@ -66,6 +76,14 @@ public class DifficultyOverlay {
         hide();
         game.loadGameScreen(false);
         uiOverlay.updatePatience(1);
+        rep = 3;
+        save.clear();
+        save.setDifficulty("insane");
+        try {
+          save.write("save.json");
+        } catch (Throwable e) {
+          throw new RuntimeException(e);
+        }
       }
     });
 
@@ -77,17 +95,33 @@ public class DifficultyOverlay {
         hide();
         game.loadGameScreen(false);
         uiOverlay.updatePatience(2);
+        rep = 3;
+        save.clear();
+        save.setDifficulty("lunatic");
+        try {
+          save.write("save.json");
+        } catch (Throwable e) {
+          throw new RuntimeException(e);
+        }
       }
     });
 
     TextButton endlessButton = game.getButtonManager()
-            .createTextButton("Endless", ButtonColour.GREEN);
+            .createTextButton("Eternity", ButtonColour.YELLOW);
     endlessButton.addListener(new ClickListener() {
       @Override
       public void clicked(InputEvent event, float x, float y) {
         hide();
         game.loadGameScreen(true);
         uiOverlay.updatePatience(0);
+        rep = 3;
+        save.clear();
+        save.setDifficulty("eternity");
+        try {
+          save.write("save.json");
+        } catch (Throwable e) {
+          throw new RuntimeException(e);
+        }
       }
     });
 
