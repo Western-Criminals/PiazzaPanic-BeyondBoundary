@@ -106,7 +106,7 @@ public class DifficultyOverlay {
         });
 
         TextButton endlessButton = game.getButtonManager()
-                .createTextButton("Eternity", ButtonColour.YELLOW);
+                .createTextButton("Endless", ButtonColour.YELLOW);
         endlessButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
