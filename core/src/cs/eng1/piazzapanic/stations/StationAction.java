@@ -14,6 +14,8 @@ public class StationAction {
     MAKE_JACKETPOTATO,
     SUBMIT_ORDER,
     CLEAR_TABLE,
+    GET_POWERUP,
+    GET_CHEF,
   }
 
   public static String getActionDescription(ActionType actionType) {
@@ -40,6 +42,10 @@ public class StationAction {
         return "Submit Order";
       case CLEAR_TABLE:
         return "Clear Table";
+      case GET_POWERUP:
+        return "Powerup: $30";
+      case GET_CHEF:
+        return "Buy Chef: $30";
       default:
         return "Unknown Action";
     }

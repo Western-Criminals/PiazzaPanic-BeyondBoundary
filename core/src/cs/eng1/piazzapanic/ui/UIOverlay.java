@@ -22,10 +22,6 @@ import cs.eng1.piazzapanic.ui.ButtonManager.ButtonColour;
 
 public class UIOverlay {
 
-    public static Timer timer = null;
-    public static int rep;
-    public static Value scale = null;
-    private static Timer repTimer = null;
     private final Image pointer;
     private final Stack chefDisplay;
     private final Image chefImage;
@@ -34,14 +30,18 @@ public class UIOverlay {
     private final TextureRegionDrawable removeBtnDrawable;
     private final Image recipeImagesBG;
     private final VerticalGroup recipeImages;
+    public static Timer timer = null;
     private final Label recipeCountLabel;
     private final Label resultLabel1;
     private final Label resultLabel2;
     private final Timer resultTimer;
     private final Label resultRep;
     private final PiazzaPanicGame game;
+    private int rep;
     private final Label repLabel;
+    public static Timer repTimer = null;
     private final LabelStyle repStyle;
+    public static Value scale = null;
     public double patience = 60;
     LongBoiBankUI bankLabel;
 
@@ -142,7 +142,7 @@ public class UIOverlay {
         repStyle = new LabelStyle(game.getFontManager().getHeaderFont(), Color.BLACK);
         repStyle.background = new TextureRegionDrawable(new Texture(
                 "Kenney-Game-Assets-1/2D assets/UI Base Pack/PNG/grey_button_gradient_down.png"));
-        repLabel = new Label("Reputation: 3", repStyle);
+        repLabel = new Label("Reputation: " + rep, repStyle);
         repTimer = new Timer(timerStyle);
         repLabel.setAlignment(Align.center);
 
