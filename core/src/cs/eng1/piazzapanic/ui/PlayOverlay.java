@@ -72,24 +72,26 @@ public class PlayOverlay {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 //added load game functionality! (˵ •̀ ᴗ - ˵ ) ✧
-                game.loadGameScreen(save.isEndless());
-                bank.setBalance(save.getBalance());
-                timer.setTime(save.getTimer());
-                rep = save.getReputation();
-                hide();
-                switch (save.getDifficulty()) {
-                    case "normal":
-                        uiOverlay.updatePatience(0);
-                        break;
-                    case "insane":
-                        uiOverlay.updatePatience(1);
-                        break;
-                    case "lunatic":
-                        uiOverlay.updatePatience(2);
-                        break;
-                    case "eternity":
-                        uiOverlay.updatePatience(0);
-                        break;
+                if (save.exists) {
+                    game.loadGameScreen(save.isEndless());
+                    bank.setBalance(save.getBalance());
+                    timer.setTime(save.getTimer());
+                    rep = save.getReputation();
+                    hide();
+                    switch (save.getDifficulty()) {
+                        case "normal":
+                            uiOverlay.updatePatience(0);
+                            break;
+                        case "insane":
+                            uiOverlay.updatePatience(1);
+                            break;
+                        case "lunatic":
+                            uiOverlay.updatePatience(2);
+                            break;
+                        case "eternity":
+                            uiOverlay.updatePatience(0);
+                            break;
+                    }
                 }
             }
         });

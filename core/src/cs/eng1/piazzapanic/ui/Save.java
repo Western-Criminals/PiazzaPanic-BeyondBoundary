@@ -24,6 +24,7 @@ public class Save {
     private Integer timer;
     private int reputation;
     private int patience;
+    public boolean exists;
 
     public Save(String difficulty, int balance, ArrayList<FixedStack<String>> inventories, List<String> upgrades, Integer timer, int reputation, int patience) {
         this.difficulty = difficulty;
@@ -36,7 +37,7 @@ public class Save {
         toJson();
     }
 
-    public Save(String path) throws Throwable {
+    public Save(String path) {
         try {
             JSONTokener jsonTokener = new JSONTokener(Files.newInputStream(Paths.get(path)));
             jsonObject = new JSONObject(jsonTokener);
@@ -57,8 +58,9 @@ public class Save {
             timer = jsonObject.getInt("timer");
             reputation = jsonObject.getInt("reputation");
             patience = jsonObject.getInt("patience");
+            exists = true;
         } catch (IOException e) {
-            throw e.getCause();
+            exists = false;
         }
     }
 

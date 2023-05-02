@@ -66,6 +66,7 @@ public class PauseOverlay {
         } catch (Throwable e) {
           throw new RuntimeException(e);
         }
+        save.exists = true;
         game.loadHomeScreen();
       }
     });
