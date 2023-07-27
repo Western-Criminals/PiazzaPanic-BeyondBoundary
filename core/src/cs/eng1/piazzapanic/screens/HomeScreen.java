@@ -17,8 +17,10 @@ import cs.eng1.piazzapanic.ui.*;
 public class HomeScreen implements Screen {
 
   private final Stage uiStage;
+  private static PlayOverlay playOverlay;
   private SettingsOverlay settingsOverlay;
-  static DifficultyOverlay difficultyOverlay = null;
+  private static DifficultyOverlay difficultyOverlay = null;
+  static CertainOverlay certainOverlay;
 
   public HomeScreen(final PiazzaPanicGame game) {
     // Initialize the root UI stage and table
@@ -31,11 +33,14 @@ public class HomeScreen implements Screen {
     final TutorialOverlay tutorialOverlay = game.getTutorialOverlay();
     tutorialOverlay.addToStage(uiStage);
 
-    final PlayOverlay playOverlay = game.getPlayOverlay();
+    playOverlay = game.getPlayOverlay();
     playOverlay.addToStage(uiStage);
 
     difficultyOverlay = game.getDifficultyOverlay();
     difficultyOverlay.addToStage(uiStage);
+
+    certainOverlay = game.getCertainOverlay();
+    certainOverlay.addToStage(uiStage);
 
     Label welcomeLabel = new Label("Welcome to Piazza Panic!",
         new Label.LabelStyle(game.getFontManager().getTitleFont(), null));
@@ -91,8 +96,14 @@ public class HomeScreen implements Screen {
     table.row();
     table.add(quitButton);
   }
+  public static void showPlayOverlay() {
+    playOverlay.show();
+  }
   public static void showDifficultyMenu() {
     difficultyOverlay.show();
+  }
+  public static void showCertainMenu() {
+    certainOverlay.show();
   }
 
   @Override

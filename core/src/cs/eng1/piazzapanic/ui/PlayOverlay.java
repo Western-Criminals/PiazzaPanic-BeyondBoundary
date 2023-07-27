@@ -72,12 +72,12 @@ public class PlayOverlay {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 //added load game functionality! (˵ •̀ ᴗ - ˵ ) ✧
+                hide();
                 if (save.exists) {
                     game.loadGameScreen(save.isEndless());
                     bank.setBalance(save.getBalance());
                     timer.setTime(save.getTimer());
                     rep = save.getReputation();
-                    hide();
                     switch (save.getDifficulty()) {
                         case "normal":
                             uiOverlay.updatePatience(0);
@@ -92,6 +92,8 @@ public class PlayOverlay {
                             uiOverlay.updatePatience(0);
                             break;
                     }
+                } else {
+                    HomeScreen.showCertainMenu();
                 }
             }
         });

@@ -16,6 +16,20 @@ import org.json.JSONArray;
 public class Save {
     private JSONObject jsonObject = new JSONObject();
     private JSONObject inventoryObject = new JSONObject();
+    private static final JSONObject template = new JSONObject(
+            "{\"difficulty\": \"normal\",\n" +
+                    "    \"timer\": 0,\n" +
+                    "    \"balance\": 0,\n" +
+                    "    \"upgrade\": [],\n" +
+                    "    \"inventories\": {\n" +
+                    "        \"c0\": [],\n" +
+                    "        \"c1\": [],\n" +
+                    "        \"c2\": []\n" +
+                    "    },\n" +
+                    "    \"patience\": 60,\n" +
+                    "    \"reputation\": 3,\n" +
+                    "    \"upgrades\": []}"
+    );
     private String difficulty;
     private int balance;
     private FixedStack<String> inventory = new FixedStack<>(5);
@@ -160,6 +174,14 @@ public class Save {
         toJson();
         try {
             Writer write = jsonObject.write(new FileWriter(path), 4, 0);
+            write.close();
+        } catch (IOException e) {
+            throw e.getCause();
+        }
+    }
+    public static void createSave(String path) throws Throwable {
+        try {
+            Writer write = template.write(new FileWriter(path), 4, 0);
             write.close();
         } catch (IOException e) {
             throw e.getCause();

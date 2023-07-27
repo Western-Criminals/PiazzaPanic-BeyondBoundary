@@ -1,6 +1,6 @@
 {
-    "difficulty": "eternity",
-    "timer": 0,
+    "difficulty": "normal",
+    "timer": 4,
     "balance": 0,
     "upgrade": [],
     "inventories": {

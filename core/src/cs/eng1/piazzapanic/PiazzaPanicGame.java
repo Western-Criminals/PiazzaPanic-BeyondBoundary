@@ -16,6 +16,7 @@ public class PiazzaPanicGame extends Game {
   private PauseOverlay pauseOverlay;
   private PlayOverlay playOverlay;
   private DifficultyOverlay difficultyOverlay;
+  private CertainOverlay certainOverlay;
   public boolean isEndless;
 
   @Override
@@ -27,6 +28,7 @@ public class PiazzaPanicGame extends Game {
     pauseOverlay      = new PauseOverlay(this);
     playOverlay       = new PlayOverlay(this);
     difficultyOverlay = new DifficultyOverlay(this);
+    certainOverlay = new CertainOverlay(this);
     loadHomeScreen();
   }
 
@@ -70,6 +72,9 @@ public class PiazzaPanicGame extends Game {
   }
   public DifficultyOverlay getDifficultyOverlay() {
     return difficultyOverlay;
+  }
+  public CertainOverlay getCertainOverlay() {
+    return certainOverlay;
   }
   public FontManager getFontManager() {
     return fontManager;
